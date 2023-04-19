@@ -20,10 +20,7 @@
   input, button, textarea, select {
     font: inherit;
   }
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-
+ 
   :root{
     --primary-color: #E3F2FD;
     --secondary-color: #90CAF9;
@@ -65,11 +62,13 @@
     background-color: var(--primary-color);
     margin-bottom: 8px;
     border: 1px solid #0D47A1;
+    overflow: hidden;
   }
         .number-tracker{
             display:flex;
             margin-right: 5px;
             font-size: 25px;
+            overflow:hidden
         }
         
         .previous{

@@ -9,19 +9,14 @@
 
 
 //Setting variables//
-let firstNumber = 0;
-let secondNumber = 0;
+let firstNumber = '';
+let secondNumber = '';
+let isSecondNumber = false;
 let operator = '';
-let sum = '';
 
 
-const display = document.getElementById('tracker')
-
-
-function pressedNumber(num) {
-    firstNumber += num ;
-    return firstNumber;
-}
+const display = document.getElementById('tracker') // for number tracker
+const prev = document.getElementById('prev')   // for previous calculation
 
 
 // Event listeners FOR EACH button //
@@ -34,22 +29,31 @@ console.log(buttons);
 
 // ----- for RESET -------//
 resDelButtons[0].addEventListener('click', () => {
-    firstNumber = 0;
-    secondNumber = 0;
-    sum = '';
-    display.textContent = firstNumber
+    firstNumber = '';
+    secondNumber = '';
+    isSecondNumber = false;
+    display.textContent = '0';
+    prev.textContent = '';
 });
 
 // for DELETE
 
 
-
 //Function for each button//
 function button(index, number){
     buttons[index].addEventListener('click', () => {
-        firstNumber = number;
-        sum += firstNumber
-        display.textContent = sum
+      if(isSecondNumber){
+        secondNumber +=  number;
+        display.textContent = secondNumber;
+        prev.textContent = ''
+
+      } else{
+        firstNumber +=  number;
+          
+        display.textContent = firstNumber;
+        prev.textContent = ''
+
+      }
     });
 }
 
@@ -69,12 +73,108 @@ button(6, '6');
 button(8, '1');
 // for Number 2
 button(9, '2');
-// for Number 2
+// for Number 3
 button(10, '3');
 // for Number 0
 button(12, '0');
 // for . symbol 
 button(13, '.');
+
+// Operators
+
+//--------ADD--------//
+function operate(firstNumber, operate, secondNumber) {
+    let result;
+    switch(operate) {
+        case '+':
+            result = +firstNumber + +secondNumber;
+            break;
+        case '-':
+            result = +firstNumber - +secondNumber;
+            break;
+        case '*':
+            result = +firstNumber * +secondNumber;
+            break;
+        case '/':
+            result = +firstNumber / +secondNumber;
+            break;
+        default:
+            console.log("Invalid operator");
+            return null;
+    }
+    return result;
+}
+
+let isValue;
+// --------- ADD -----------//
+buttons[15].addEventListener('click', () => {
+    isSecondNumber = true;
+    isValue = 1;
+    display.textContent = firstNumber + '+' + secondNumber;
+   
+    
+});
+
+// --------SUBTRACT--------//
+buttons[11].addEventListener('click', () => {
+    isSecondNumber = true;
+    isValue = 2;
+    display.textContent = firstNumber + '-' + secondNumber;
+});
+
+// --------MULTIPLY--------//
+
+buttons[7].addEventListener('click', () => {
+    isSecondNumber = true;
+    isValue = 3;
+    display.textContent = firstNumber + 'x' + secondNumber;
+});
+
+// --------DIVIDE--------//
+
+buttons[3].addEventListener('click', () => {
+    isSecondNumber = true;
+    isValue = 4;
+    display.textContent = firstNumber + '%' + secondNumber;
+});
+
+//--------EQUALS-----------//
+buttons[14].addEventListener('click', () => {
+   if(isValue == 1){
+        prev.textContent = `${firstNumber}+${secondNumber}=`
+        let result = operate(firstNumber, '+', secondNumber);
+        display.textContent = result;
+        firstNumber = '';
+        secondNumber = '';
+        isSecondNumber = false;
+
+   }else if(isValue == 2){
+        prev.textContent = `${firstNumber}-${secondNumber}=`
+        let result = operate(firstNumber, '-', secondNumber);
+        display.textContent = result;
+        firstNumber = '';
+        secondNumber = '';
+        isSecondNumber = false;
+   
+    }else if(isValue == 3){
+        prev.textContent = `${firstNumber}x${secondNumber}=`
+        let result = operate(firstNumber, '*', secondNumber);
+        display.textContent = result;
+        firstNumber = '';
+        secondNumber = '';
+        isSecondNumber = false;
+    
+    }else if(isValue == 4){
+        prev.textContent = `${firstNumber}%${secondNumber}=`
+        let result = operate(firstNumber, '/', secondNumber);
+        display.textContent = result;
+        firstNumber = '';
+        secondNumber = '';
+        isSecondNumber = false;
+    }
+    
+});
+
 
 
 
