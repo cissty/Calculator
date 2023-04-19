@@ -24,8 +24,8 @@ const prev = document.getElementById('prev')   // for previous calculation
 
 const resDelButtons = document.querySelectorAll('.top-button')
 const buttons = document.querySelectorAll('.number');
-console.log(buttons);
 
+console.log(resDelButtons)
 
 // ----- for RESET -------//
 resDelButtons[0].addEventListener('click', () => {
@@ -38,6 +38,18 @@ resDelButtons[0].addEventListener('click', () => {
 
 // for DELETE
 
+resDelButtons[1].addEventListener('click', () => {
+    if(isSecondNumber){
+        secondNumber = secondNumber / 10 ^ 0;
+        display.textContent = secondNumber;
+    
+    }else{
+        firstNumber = firstNumber / 10 ^ 0;
+        display.textContent = firstNumber;
+       }
+     }
+    
+    );
 
 //Function for each button//
 function button(index, number){
@@ -45,13 +57,12 @@ function button(index, number){
       if(isSecondNumber){
         secondNumber +=  number;
         display.textContent = secondNumber;
-        prev.textContent = ''
+        prev.textContent = '';
 
       } else{
         firstNumber +=  number;
-          
         display.textContent = firstNumber;
-        prev.textContent = ''
+        prev.textContent = '';
 
       }
     });
@@ -82,7 +93,6 @@ button(13, '.');
 
 // Operators
 
-//--------ADD--------//
 function operate(firstNumber, operate, secondNumber) {
     let result;
     switch(operate) {
@@ -104,7 +114,7 @@ function operate(firstNumber, operate, secondNumber) {
     }
     return result;
 }
-
+// value variable assigns operators to the equals button
 let isValue;
 // --------- ADD -----------//
 buttons[15].addEventListener('click', () => {
@@ -140,32 +150,32 @@ buttons[3].addEventListener('click', () => {
 
 //--------EQUALS-----------//
 buttons[14].addEventListener('click', () => {
-   if(isValue == 1){
-        prev.textContent = `${firstNumber}+${secondNumber}=`
+   if(isValue === 1){
+        prev.textContent = `${firstNumber} + ${secondNumber} =`
         let result = operate(firstNumber, '+', secondNumber);
         display.textContent = result;
         firstNumber = '';
         secondNumber = '';
         isSecondNumber = false;
 
-   }else if(isValue == 2){
-        prev.textContent = `${firstNumber}-${secondNumber}=`
+   }else if(isValue === 2){
+        prev.textContent = `${firstNumber} - ${secondNumber} =`
         let result = operate(firstNumber, '-', secondNumber);
         display.textContent = result;
         firstNumber = '';
         secondNumber = '';
         isSecondNumber = false;
    
-    }else if(isValue == 3){
-        prev.textContent = `${firstNumber}x${secondNumber}=`
+    }else if(isValue === 3){
+        prev.textContent = `${firstNumber} x ${secondNumber} =`
         let result = operate(firstNumber, '*', secondNumber);
         display.textContent = result;
         firstNumber = '';
         secondNumber = '';
         isSecondNumber = false;
     
-    }else if(isValue == 4){
-        prev.textContent = `${firstNumber}%${secondNumber}=`
+    }else if(isValue === 4){
+        prev.textContent = `${firstNumber} % ${secondNumber} =`
         let result = operate(firstNumber, '/', secondNumber);
         display.textContent = result;
         firstNumber = '';
