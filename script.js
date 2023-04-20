@@ -13,10 +13,12 @@ let firstNumber = '';
 let secondNumber = '';
 let isSecondNumber = false;
 let operator = '';
-
+let displayValue = '';
 
 const display = document.getElementById('tracker') // for number tracker
 const prev = document.getElementById('prev')   // for previous calculation
+
+const currentOperator = document.querySelectorAll('[data-operator]')
 
 
 // Event listeners FOR EACH button //
@@ -25,7 +27,6 @@ const prev = document.getElementById('prev')   // for previous calculation
 const resDelButtons = document.querySelectorAll('.top-button')
 const buttons = document.querySelectorAll('.number');
 
-console.log(resDelButtons)
 
 // ----- for RESET -------//
 resDelButtons[0].addEventListener('click', () => {
@@ -42,8 +43,8 @@ resDelButtons[1].addEventListener('click', () => {
     if(isSecondNumber){
         secondNumber = secondNumber / 10 ^ 0;
         display.textContent = secondNumber;
-    
-    }else{
+    }
+    else{
         firstNumber = firstNumber / 10 ^ 0;
         display.textContent = firstNumber;
        }
@@ -56,14 +57,13 @@ function button(index, number){
     buttons[index].addEventListener('click', () => {
       if(isSecondNumber){
         secondNumber +=  number;
-        display.textContent = secondNumber;
+        display.textContent = `${secondNumber}`;
         prev.textContent = '';
 
       } else{
         firstNumber +=  number;
         display.textContent = firstNumber;
         prev.textContent = '';
-
       }
     });
 }
@@ -93,9 +93,9 @@ button(13, '.');
 
 // Operators
 
-function operate(firstNumber, operate, secondNumber) {
+function operate(firstNumber, operator, secondNumber) {
     let result;
-    switch(operate) {
+    switch(operator) {
         case '+':
             result = +firstNumber + +secondNumber;
             break;
@@ -108,44 +108,46 @@ function operate(firstNumber, operate, secondNumber) {
         case '/':
             result = +firstNumber / +secondNumber;
             break;
-        default:
-            console.log("Invalid operator");
-            return null;
+       
     }
     return result;
 }
 // value variable assigns operators to the equals button
 let isValue;
 // --------- ADD -----------//
+let totalValue;
 buttons[15].addEventListener('click', () => {
+    operator = '+'
     isSecondNumber = true;
     isValue = 1;
-    display.textContent = firstNumber + '+' + secondNumber;
-   
-    
+    display.textContent = firstNumber + operator;
+
 });
 
 // --------SUBTRACT--------//
 buttons[11].addEventListener('click', () => {
+    operator = '-'
     isSecondNumber = true;
     isValue = 2;
-    display.textContent = firstNumber + '-' + secondNumber;
+    display.textContent = firstNumber + operator;
 });
 
 // --------MULTIPLY--------//
 
 buttons[7].addEventListener('click', () => {
+    operator = 'x'
     isSecondNumber = true;
     isValue = 3;
-    display.textContent = firstNumber + 'x' + secondNumber;
+    display.textContent = firstNumber + operator;
 });
 
 // --------DIVIDE--------//
 
 buttons[3].addEventListener('click', () => {
+    operator = '%'
     isSecondNumber = true;
     isValue = 4;
-    display.textContent = firstNumber + '%' + secondNumber;
+    display.textContent = firstNumber + operator;
 });
 
 //--------EQUALS-----------//
@@ -157,6 +159,7 @@ buttons[14].addEventListener('click', () => {
         firstNumber = '';
         secondNumber = '';
         isSecondNumber = false;
+
 
    }else if(isValue === 2){
         prev.textContent = `${firstNumber} - ${secondNumber} =`
